@@ -10,6 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_response :success
   end
+  
   test "should redirect edit when not logged in" do
     get edit_user_path(@user)
     assert_not flash.empty?
@@ -58,5 +59,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :see_other
     assert_redirected_to root_url
+  end
+
+  test "should redirect following when not logged in" do
+    get following_user_path(@user)
+    assert_redirected_to login_url
+  end
+
+  test "should redirect followers when not logged in" do
+    get followers_user_path(@user)
+    assert_redirected_to login_url
   end
 end
